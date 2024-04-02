@@ -1,0 +1,20 @@
+- name: Install Softwares
+  hosts: web_servers
+  vars:
+    packages:
+      - name: nginx
+        required: true
+      - name: mysql
+        required: true
+      - name: apache
+        required: false
+  tasks:
+    - name: Install "{{ item.name }}" on Debian 16.04
+      apt:
+        name: "{{ item.name }}"
+        state: present
+      loop: "{{ packages }}"
+      when:
+        - ansible_os_family == "Debian"
+        - ansible_distribution_version == "16.04"
+        - item.required == true
