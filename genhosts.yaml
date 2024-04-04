@@ -1,0 +1,13 @@
+---
+- name: Copy file with owner and permissions
+  hosts: tag_role_kubecluster
+  gather_facts: no
+
+  tasks:
+    - name: Copy file with specific owner and permissions
+      ansible.builtin.lineinfile:
+        src: "~/hosts"
+        dest: "/etc/hosts"
+        owner: "root"
+        group: "root"
+        mode: "0644"
